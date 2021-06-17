@@ -15,7 +15,8 @@ class Cliente:
     def mostrar_total(self):
         return f"{self.nombre}: {self.cantidad}"
 
-....................................................................
+#....................................................................
+
 class Banco:
     clientes = {}
     def __init__(self):
@@ -41,3 +42,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+ 
