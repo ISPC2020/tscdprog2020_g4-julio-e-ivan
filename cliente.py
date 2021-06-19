@@ -2,13 +2,18 @@ class Cliente:
     def __init__(self, contacto):
         self.contactos = contacto
         self.cantidad = 0
-    
+
     def crear(self):
-        print("Indique los siguientes datos para crear su cuenta: ")
-        nombre = input("Nombre: ")
-        cantidad = float (input ("Con cuanto inicia la cuenta? "))
-        self.contactos[nombre]=(cantidad)
-    
+        # pedir el nombre
+        nombre = input("Ingrese el usuario: ")
+        # recorrer el listado de los clientes actuales y buscar de que no exista en la base.
+        if not any(contacto['nombre'] == nombre for contacto in self.contactos):
+          nuevoContacto = {'nombre': nombre, 'cantidad': 0}
+          self.contactos.append(nuevoContacto)
+          print('Se agrego el usuario: ', nombre)
+        else:
+          print('Ya existe un usuario con ese nombre')
+
     # TODO: Analizar el caso en el que no exista un usuario en la base.
     def depositar(self):
         nombre = input("Ingrese el usuario: ")
@@ -31,4 +36,3 @@ class Cliente:
               platitaUsuario -= valor
               self.contactos[contacto]['cantidad'] = platitaUsuario
               print(platitaUsuario)
-    
