@@ -1,3 +1,36 @@
+import pymysql
+
+
+class Conexion:
+    
+    def __init__(self):
+        self.host='127.0.0.1'
+        self.user='root'
+        self.password=''
+        self.db='employees'
+        
+        
+    def conectar(self):
+        try:
+            conexion = pymysql.connect(host=self.host,
+                                    user=self.user,
+                                    password=self.password,
+                                    db=self.db)
+            return conexion   
+
+        except (pymysql.err.OperationalError, pymysql.err.InternalError) as error:
+            print("Ocurrió un error al conectar: ", error)
+
+objetoConexion = Conexion().conectar()
+colectorDeDatos = objetoConexion.cursor() #metodo cursor esta retornado desde la libreria pymysql
+
+colectorDeDatos.execute("SELECT * FROM clientes") #por cursor puedo usar execute y hago la consulta a la BD
+
+resultado = colectorDeDatos.fetchall() #fetchall es un metodo de pymysql que es para traer todos los datos del cursor
+
+for x in resultado:
+  print(x) #hago un for para imprimir todos los datos
+
 from cliente import Cliente
 from banco import Banco
 
