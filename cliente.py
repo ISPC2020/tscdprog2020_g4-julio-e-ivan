@@ -29,7 +29,7 @@ class Cliente:
             cursor = conexion.cursor()        
             sql= "insert into employees (emp_no, first_name, last_name) values ("+str(identificacion)+",'"+nombre+"','"+apellido+"');"
             cursor.execute(sql)
-            conexion.commit()
+            conexion.commit() #probar si hay un auto commit
             #INSERT INTO employees (emp_no, first_name, last_name) VALUES (1, 'Demian', 'Torres');
 
             print('Se agrego el usuario: ', nombre)
