@@ -58,3 +58,8 @@ class Cliente:
                     platitaUsuario -= valor
                     self.contactos[contacto]['cantidad'] = platitaUsuario
                     print(platitaUsuario)
+
+
+
+
+#agregar plazo fijo
