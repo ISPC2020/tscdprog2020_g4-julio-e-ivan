@@ -1,28 +1,3 @@
-class Cliente:
-    def __init__(self, contacto):
-        self.contactos = contacto
-
-    def crear(self):
-                # pedir el nombre / cambiar por ID de empleado
-        identificacion = int(input("Ingrese su numero de cliente: "))
-        # recorrer el listado de los clientes actuales y buscar de que no exista en la base.
-        if not any(cliente['numero_de_cliente'] == identificacion for cliente in self.clientes):
-            nombre = input("Ingrese su nombre: ")
-            apellido = input("Ingrese su apellido: ")
-            #nuevo_cliente = {'numero_de_cliente': identificacion, "nombre_cliente": nombre, "apellido_cliente":apellido, "cuenta_corriente":0}
-           # self.contactos.append(nuevo_cliente)
-            conexion = Conexion().conectar()
-            cursor = conexion.cursor()        
-            sql= "insert into employees (emp_no, first_name, last_name) values ("+str(identificacion)+",'"+nombre+"','"+apellido+"');"
-            cursor.execute(sql)
-            conexion.commit() #probar si hay un auto commit
-            #INSERT INTO employees (emp_no, first_name, last_name) VALUES (1, 'Demian', 'Torres');
-
-            print('Se agrego el usuario: ', nombre)
-        else:
-            print('Ya existe un usuario con numero de cliente')
-
-
     # TODO: Analizar el caso en el que no exista un usuario en la base.
     def depositar(self):
         identificacion = int(input("Ingrese su numero de cliente: "))
