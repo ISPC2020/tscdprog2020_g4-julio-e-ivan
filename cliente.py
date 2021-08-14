@@ -45,7 +45,7 @@
                 inversion = int(input("Ingrese monto a generar plazo fijo $ "))
                 platitaUsuario -= inversion
                 plazo = int(input("Ingrese plazo a constituir el Plazo Fijo"))
-                interes = int(input("Ingreses tasa de interés convenida"))
+                interes = float(input("Ingreses tasa de interés convenida"))
                 totalInteres = inversion * interes / 100
                 self.cliente['cuenta_corriente'] = platitaUsuario
                 self.cliente['plazo_fijo'] = inversion
