@@ -42,10 +42,10 @@ class Cliente:
         cursor = conexion.cursor()
         #sql= "SELECT * FROM `employees` WHERE emp_no = "
         cursor.execute("SELECT * FROM `employees` WHERE emp_no = %s",  (str(identificacion)))
-        resultado = cursor.fetchall()
-        cuenta_corriente_act = float(resultado[0][6])
+        resultado = cursor.fetchall() #convierto el resultado de la consulta en un número para poder usar el if
+        cuenta_corriente_act = float(resultado[0][6]) #guardo en cuenta corriente el dato del resultado 1 y el valor de la posición 6 que es la de cuenta corriente
         
-        if (len(resultado) > 0):
+        if (len(resultado) > 0): #Con Len cuento los resultados y le digo que si es mas de 0 que vaya con el if
             ingreso = float(input("Cuanto desea depositar: "))
             cuenta_corriente_nva = ingreso + cuenta_corriente_act
             print("Su cuenta dispone de ", cuenta_corriente_nva)
@@ -68,15 +68,35 @@ class Cliente:
 
 
     def extraer(self):
-        nombre = input("Ingrese el nombre del usuario: ")
-        for contacto in range(len(self.contactos)):
-            if nombre == self.contactos[contacto]['nombre']:
-                platitaUsuario = self.contactos[contacto]['cantidad']
-                valor = int(input("Ingrese cuanto desea extraer: "))
-                if valor < platitaUsuario:
-                    platitaUsuario -= valor
-                    self.contactos[contacto]['cantidad'] = platitaUsuario
-                    print(platitaUsuario)
+        identificacion = int(input("Ingrese su numero de cliente: ")) #Lo agrego para buscar al cliente
+        conexion = Conexion().conectar()
+        cursor = conexion.cursor()
+        #sql= "SELECT * FROM `employees` WHERE emp_no = "
+        cursor.execute("SELECT * FROM `employees` WHERE emp_no = %s",  (str(identificacion)))
+        resultado = cursor.fetchall() #convierto el resultado de la consulta en un número para poder usar el if
+        cuenta_corriente_act = float(resultado[0][6]) #guardo en cuenta corriente el dato del resultado 1 y el valor de la posición 6 que es la de cuenta corriente
+        
+        if (len(resultado) > 0): #Con Len cuento los resultados y le digo que si es mas de 0 que vaya con el if
+            egreso = float(input("Cuanto desea extraer?: "))
+            cuenta_corriente_nva = cuenta_corriente_act - egreso
+            print("Su cuenta dispone de ", cuenta_corriente_nva)
+            cursor_update = conexion.cursor()
+            cursor_update.execute("UPDATE employees SET cuenta_corriente = %s WHERE emp_no = %s;", (str(cuenta_corriente_nva), str(identificacion)))
+            #UPDATE employees SET cuenta_corriente = 1 WHERE emp_no = 12;
+            conexion.commit() 
+
+
+    
+
+       # nombre = input("Ingrese el nombre del usuario: ")
+       # for contacto in range(len(self.contactos)):
+       #     if nombre == self.contactos[contacto]['nombre']:
+       #         platitaUsuario = self.contactos[contacto]['cantidad']
+       #         valor = int(input("Ingrese cuanto desea extraer: "))
+       #         if valor < platitaUsuario:
+       #             platitaUsuario -= valor
+       #             self.contactos[contacto]['cantidad'] = platitaUsuario
+       #             print(platitaUsuario)
 
 
 
