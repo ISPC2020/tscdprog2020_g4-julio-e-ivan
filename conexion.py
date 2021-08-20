@@ -20,3 +20,13 @@ class Conexion:
         except (pymysql.err.OperationalError, pymysql.err.InternalError) as error:
             print("Ocurrió un error al conectar: ", error)
 
+    def ejecutar_consulta(self, consulta):
+        coneccion = self.conectar()
+        cursor = coneccion.cursor()        
+        cursor.execute(consulta)
+        coneccion.commit()
+        resultado = cursor.fetchall()
+        cursor.close() #Cerrar el cursor                
+        coneccion.close() 
+        return resultado
+
