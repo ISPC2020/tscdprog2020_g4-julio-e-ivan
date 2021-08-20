@@ -6,22 +6,17 @@ class Cliente:
         self.clientes = clientes
 
     def crear(self):
-                # pedir el ID de empleado para identificarlo
-        identificacion = int(input("Ingrese su numero de cliente: "))
-        # recorrer el listado de los clientes actuales y buscar de que no exista en la base.
-        if not any(cliente['numero_de_cliente'] == identificacion for cliente in self.clientes):
-            nombre = input("Ingrese su nombre: ")
-            apellido = input("Ingrese su apellido: ")
-            #nuevo_cliente = {'numero_de_cliente': identificacion, "nombre_cliente": nombre, "apellido_cliente":apellido, "cuenta_corriente":0}
-           # self.contactos.append(nuevo_cliente)
-            conexion = Conexion().conectar()
-            cursor = conexion.cursor()        
-            cursor.execute("insert into employees (emp_no, first_name, last_name) values (%s, %s, %s);", (str(identificacion), nombre, apellido))
-            conexion.commit() #probar si hay un auto commit
-
-            print('Se agrego el usuario: ', nombre)
+        identificacion = input("Ingrese un numero que será su numero de cliente: ")#Lo agrego para buscar al cliente
+        consulta = "SELECT * FROM `employees` WHERE emp_no = {};".format(identificacion)
+        resultado_verificacion = Conexion().ejecutar_consulta(consulta)
+        if (len(resultado_verificacion) < 1): 
+            apellido = input("Indique su apellido: ")
+            nombre = input("Indique su nombre: ")
+            sql = (f"insert into employees (emp_no, first_name, last_name) values ({identificacion}, '{nombre}', '{apellido}')")
+            prueba = Conexion().ejecutar_consulta(sql)
         else:
-            print('Ya existe un usuario con numero de cliente')
+            print("El usuario ya se encuentra registrado, elija otro numero de identificacion")
+
 
 
     def depositar(self):
