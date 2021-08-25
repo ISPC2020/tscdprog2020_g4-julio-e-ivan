@@ -16,7 +16,7 @@
             plazo_fijo = plazo_fijo * interes / 100 * dias
             print("Su saldo actual en Cuenta Corriente es de $ ", cuenta_corriente)
             print("Se constituyó el Plazo Fijo por $ ", plazo_fijo, "a ", dias, "dias, con un interés del ", interes, "%")
-            consulta_plazo_fijo = "UPDATE employees SET plazo_fijo = {} WHERE emp_no = {};"format(str(cuenta_corriente), str(plazo_fijo), str(identificacion))
+            consulta_plazo_fijo = "UPDATE employees SET plazo_fijo = {} WHERE emp_no = {};".format(str(cuenta_corriente), str(plazo_fijo), str(identificacion))
             Conexion().ejecutar_consulta(consulta_plazo_fijo)        
         else:
             print("Número de cliente inexistente")    
