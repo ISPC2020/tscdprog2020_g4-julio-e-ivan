@@ -42,10 +42,13 @@ class Cliente:
         if (len(resultado_consulta) > 0): #Con Len cuento los resultados y le digo que si es mas de 0 que vaya con el if
             cuenta_corriente_act = float(resultado_consulta[0][6]) #guardo en cuenta corriente el dato del resultado 1 y el valor de la posición 6 que es la de cuenta corriente
             egreso = float(input("Cuanto desea extraer?: "))
-            cuenta_corriente_nva = cuenta_corriente_act - egreso
-            print("Su cuenta dispone de ", cuenta_corriente_nva)
-            consulta_extraer = "UPDATE employees SET cuenta_corriente = {} WHERE emp_no = {};".format(str(cuenta_corriente_nva), str(identificacion))
-            Conexion().ejecutar_consulta(consulta_extraer)
+            if cuenta_corriente_act >= egreso:
+                cuenta_corriente_nva = cuenta_corriente_act - egreso
+                print("Su cuenta dispone de ", cuenta_corriente_nva)
+                consulta_extraer = "UPDATE employees SET cuenta_corriente = {} WHERE emp_no = {};".format(str(cuenta_corriente_nva), str(identificacion))
+                Conexion().ejecutar_consulta(consulta_extraer)
+            else:
+                print("La cuenta no posee fondos suficientes")
         else:
             print("El usuarion no se encuentra registrado. Verifique el numero o cree un usuario nuevo")
 
